@@ -1,0 +1,19 @@
+#create
+composer create-project symfony/skeleton tieto_bookstore
+#doctrine
+composer require symfony/orm-pack
+composer require symfony/maker-bundle --dev
+php bin/console doctrine:database:create
+#porm
+composer require symfony/form
+#paginator
+composer require knplabs/knp-paginator-bundle
+#authorization
+composer require symfony/security-bundle
+#insert admin row
+composer require doctrine/doctrine-fixtures-bundle
+#twig
+composer require symfony/twig-bundle
+composer require symfony/translation
+#validator
+composer require symfony/validator
