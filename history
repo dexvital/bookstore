@@ -17,3 +17,8 @@ composer require symfony/twig-bundle
 composer require symfony/translation
 #validator
 composer require symfony/validator
+#creating entity User and Book
+php bin/console make:entity
+#migration
+php bin/console make:migration
+php bin/console doctrine:migrations:migrate
