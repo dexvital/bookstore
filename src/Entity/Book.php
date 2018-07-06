@@ -17,7 +17,7 @@ class Book
     private $id;
 
     /**
-     * @ORM\Column(type="string", length=255)
+     * @ORM\Column(type="string", unique=true, length=255)
      */
     private $name;
 
@@ -34,6 +34,17 @@ class Book
     public function getId()
     {
         return $this->id;
+    }
+
+    /**
+     * @param $id
+     * @return Book
+     */
+    public function setId($id): self
+    {
+        $this->id = $id;
+
+        return $this;
     }
 
     public function getName(): ?string

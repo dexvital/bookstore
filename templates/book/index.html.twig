@@ -1,0 +1,47 @@
+{% extends 'main.html.twig' %}
+
+{% block content %}
+    <br />
+    {% if is_granted('IS_AUTHENTICATED_FULLY') %}
+    <div class="row title_row">
+        <div class="col-sm-2 col-md-2">
+            <a href="{{ path('book_edit') }}" class="btn btn-sm btn-success" type="button">
+                <span class="fas fa-plus" aria-hidden="true"></span>
+                Add
+            </a>
+        </div>
+        <div class="col-sm-10 col-md-10">
+        </div>
+    </div>
+    {% endif %}
+    <div class="row">
+        <div class="col-sm-12 col-md-12">
+            <table class="table table-striped">
+                <tbody>
+                {% for book in books_paginated %}
+
+                    <tr>
+                        <td>{{ book.id }}</td>
+                        <td>{{ book.name }}</td>
+                        <td>{{ book.price }}</td>
+                        {% if is_granted('IS_AUTHENTICATED_FULLY') %}
+                        <td><a type="button" class="btn btn-sm btn-default"
+                               href="{{ path('book_edit',{'bookId':book.id, 'page':app.request.query.get("page")}) }}"><span class="fas fa-pencil-alt"></span>Edit</a>
+                            <a type="button" class="btn btn-sm btn-default red"
+                               onclick="return confirm('{% trans %}Are you sure you want to delete{% endtrans %}?')"
+                               href="{{ path('book_delete',{'bookId':book.id, 'page':app.request.query.get("page")}) }}"><span class="far fa-trash-alt"></span>Delete</a></td>
+                        {% endif %}
+                    </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-sm-2 col-md-2"></div>
+        <div class="col-sm-8 col-md-8">
+            {{ knp_pagination_render(books_paginated) }}
+        </div>
+        <div class="col-sm-2 col-md-2"></div>
+    </div>
+{% endblock %}

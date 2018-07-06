@@ -1,0 +1,45 @@
+{# app/Resources/views/user/login.html.twig #}
+{% extends 'base.html.twig' %}
+
+{% block moduletitle %}
+    Login
+{% endblock %}
+
+{% block style %}
+    <style>
+
+    </style>
+{% endblock %}
+{% block body %}
+
+    <div class="container">
+        <div class="row">
+            <div class="col-md-6">
+                <form class="form-horizontal" action="{{ path('login') }}" method="post" name="form">
+                    <h2>Login</h2>
+                    {% if error %}
+                        <div class="alert alert-danger">
+                            {{ error.messageKey|trans(error.messageData, 'security') }}
+                        </div>
+                    {% endif %}
+                    <div class="form-group row">
+                        <label for="form_username" class="col-sm-3 col-form-label required">Username</label>
+                        <div class="col-sm-9">
+                            <input type="text" value="{{ last_username }}" placeholder="Username" class="form-control"
+                                   required="required" name="_username" id="form_username">
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label for="form_password" class="col-sm-3 col-form-label required">Password</label>
+                        <div class="col-sm-9">
+                            <input type="password" placeholder="Password" class="form-control"
+                                   required="required" name="_password" id="form_password">
+                        </div>
+                    </div>
+                    <button class="btn btn-primary col-sm-offset-3" name="form[submit]" id="form_submit" type="submit">Submit</button>
+                </form>
+            </div>
+        </div>
+    </div>
+
+{% endblock %}
