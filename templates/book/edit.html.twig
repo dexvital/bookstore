@@ -2,10 +2,10 @@
 
 {% block content %}
 
-
-    {{ form_start(book_form,{'action' : path('book_edit'),'attr': {'class': 'form-horizontal'}}) }}
-
     <br />
+    {{ form_start(book_form,{'action' : path('book_edit'),'attr': {'class': 'form-horizontal'}}) }}
+    {{ form_errors(book_form) }}
+
     <div class="row">
         <div class="col-sm-4">
 
@@ -23,9 +23,7 @@
             </div>
 
             {{ form_widget(book_form.save, {'attr': {'class': 'btn btn-primary col-sm-offset-3'}}) }}
-
         </div>
-
     </div>
 
 

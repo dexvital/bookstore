@@ -75,7 +75,7 @@ class BookController extends Controller
 
         if ($bookForm->isSubmitted() && $bookForm->isValid()) {
             $book->setDate(new \DateTime());
-
+            
             $em = $this->getDoctrine()->getManager();
             $em->persist($book);
             try {
@@ -97,7 +97,8 @@ class BookController extends Controller
     /**
      * @Route("/book/delete/{bookId}/{page}", defaults={"page" = 1}, requirements={"bookId": "\d+"}, name="book_delete")
      */
-    public function delete($bookId, $page, Request $request) {
+    public function delete($bookId, $page, Request $request)
+    {
         $em = $this->getDoctrine()->getManager();
         $book = $em->getRepository('App:Book')->find($bookId);
         if (!$book) {

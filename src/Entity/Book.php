@@ -6,6 +6,7 @@ use Doctrine\ORM\Mapping as ORM;
 
 /**
  * @ORM\Entity(repositoryClass="App\Repository\BookRepository")
+ * @ORM\Table(uniqueConstraints={@ORM\UniqueConstraint(name="unique_book", columns={"name"})})
  */
 class Book
 {
