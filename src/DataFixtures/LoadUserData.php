@@ -21,10 +21,20 @@ class LoadUserData implements FixtureInterface, ContainerAwareInterface
         $encoder = $this->container->get('security.password_encoder');
         $password = $encoder->encodePassword($user, '123');
         $user->setPassword($password);
-
         $user->setRole('ROLE_ADMIN');
 
         $manager->persist($user);
+
+        $user = new User();
+        $user->setUsername('user');
+
+        $encoder = $this->container->get('security.password_encoder');
+        $password = $encoder->encodePassword($user, '123');
+        $user->setPassword($password);
+        $user->setRole('ROLE_USER');
+
+        $manager->persist($user);
+
         $manager->flush();
     }
 

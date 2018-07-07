@@ -2,7 +2,7 @@
 
 {% block content %}
     <br />
-    {% if is_granted('IS_AUTHENTICATED_FULLY') %}
+    {% if is_granted('ROLE_ADMIN') %}
     <div class="row title_row">
         <div class="col-sm-2 col-md-2">
             <a href="{{ path('book_edit') }}" class="btn btn-sm btn-success" type="button">
@@ -24,7 +24,13 @@
                         <td>{{ book.id }}</td>
                         <td>{{ book.name }}</td>
                         <td>{{ book.price }}</td>
-                        {% if is_granted('IS_AUTHENTICATED_FULLY') %}
+                        {% if is_granted('ROLE_USER') %}
+                        <td>
+                            <a type="button" class="btn btn-sm btn-default"
+                               href="{{ path('cart_add',{'bookId':book.id, 'page':app.request.query.get("page")}) }}"><span class="fas fa-pencil-alt"></span>Add</a>
+                        </td>
+                        {% endif %}
+                        {% if is_granted('ROLE_ADMIN') %}
                         <td><a type="button" class="btn btn-sm btn-default"
                                href="{{ path('book_edit',{'bookId':book.id, 'page':app.request.query.get("page")}) }}"><span class="fas fa-pencil-alt"></span>Edit</a>
                             <a type="button" class="btn btn-sm btn-default red"
