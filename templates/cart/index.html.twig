@@ -2,6 +2,7 @@
 
 {% block content %}
     <br />
+    {% if is_granted('ROLE_USER') %}
     <div class="row title_row">
         <div class="col-sm-2 col-md-2">
             <a href="{{ path('cart_order') }}" class="btn btn-sm btn-success" type="button">
@@ -11,6 +12,7 @@
         <div class="col-sm-10 col-md-10">
         </div>
     </div>
+    {% endif %}
     <div class="row">
         <div class="col-sm-12 col-md-12">
             <table class="table table-striped">

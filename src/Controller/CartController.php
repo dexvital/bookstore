@@ -18,7 +18,7 @@ class CartController extends Controller
      */
     public function index(Request $request, Session $session)
     {
-        $cart = $session->get('cart');
+        $cart = $session->get('cart') ?? [];
 
         $paginator = $this->get('knp_paginator');
         $cart = $paginator->paginate(
