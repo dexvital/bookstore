@@ -2,25 +2,25 @@
 
 namespace App\Repository;
 
-use App\Entity\CartItem;
+use App\Entity\OrderItem;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Symfony\Bridge\Doctrine\RegistryInterface;
 
 /**
- * @method CartItem|null find($id, $lockMode = null, $lockVersion = null)
- * @method CartItem|null findOneBy(array $criteria, array $orderBy = null)
- * @method CartItem[]    findAll()
- * @method CartItem[]    findBy(array $criteria, array $orderBy = null, $limit = null, $offset = null)
+ * @method OrderItem|null find($id, $lockMode = null, $lockVersion = null)
+ * @method OrderItem|null findOneBy(array $criteria, array $orderBy = null)
+ * @method OrderItem[]    findAll()
+ * @method OrderItem[]    findBy(array $criteria, array $orderBy = null, $limit = null, $offset = null)
  */
-class CartItemRepository extends ServiceEntityRepository
+class OrderItemRepository extends ServiceEntityRepository
 {
     public function __construct(RegistryInterface $registry)
     {
-        parent::__construct($registry, CartItem::class);
+        parent::__construct($registry, OrderItem::class);
     }
 
 //    /**
-//     * @return CartItem[] Returns an array of CartItem objects
+//     * @return OrderItem[] Returns an array of OrderItem objects
 //     */
     /*
     public function findByExampleField($value)
@@ -37,7 +37,7 @@ class CartItemRepository extends ServiceEntityRepository
     */
 
     /*
-    public function findOneBySomeField($value): ?CartItem
+    public function findOneBySomeField($value): ?OrderItem
     {
         return $this->createQueryBuilder('c')
             ->andWhere('c.exampleField = :val')

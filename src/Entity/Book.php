@@ -32,6 +32,9 @@ class Book
      */
     private $date;
 
+    /**
+     * @return mixed
+     */
     public function getId()
     {
         return $this->id;
@@ -48,11 +51,18 @@ class Book
         return $this;
     }
 
+    /**
+     * @return null|string
+     */
     public function getName(): ?string
     {
         return $this->name;
     }
 
+    /**
+     * @param string $name
+     * @return Book
+     */
     public function setName(string $name): self
     {
         $this->name = $name;
@@ -60,11 +70,18 @@ class Book
         return $this;
     }
 
+    /**
+     * @return mixed
+     */
     public function getPrice()
     {
         return $this->price;
     }
 
+    /**
+     * @param $price
+     * @return Book
+     */
     public function setPrice($price): self
     {
         $this->price = $price;
@@ -72,11 +89,18 @@ class Book
         return $this;
     }
 
+    /**
+     * @return \DateTimeInterface|null
+     */
     public function getDate(): ?\DateTimeInterface
     {
         return $this->date;
     }
 
+    /**
+     * @param \DateTimeInterface $date
+     * @return Book
+     */
     public function setDate(\DateTimeInterface $date): self
     {
         $this->date = $date;
