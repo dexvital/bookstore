@@ -22,7 +22,8 @@
     "require-dev": {
         "doctrine/doctrine-fixtures-bundle": "^3.0",
         "symfony/dotenv": "^4.1",
-        "symfony/maker-bundle": "^1.5"
+        "symfony/maker-bundle": "^1.5",
+        "symfony/phpunit-bridge": "^4.1"
     },
     "config": {
         "preferred-install": {

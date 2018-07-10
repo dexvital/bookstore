@@ -2,13 +2,14 @@
 
 namespace App\Entity;
 
+use App\Util\Interfaces\CartItemInterface;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
  * @ORM\Entity(repositoryClass="App\Repository\BookRepository")
  * @ORM\Table(uniqueConstraints={@ORM\UniqueConstraint(name="unique_book", columns={"name"})})
  */
-class Book
+class Book implements CartItemInterface
 {
     /**
      * @ORM\Id()

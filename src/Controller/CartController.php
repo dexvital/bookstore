@@ -4,6 +4,8 @@ namespace App\Controller;
 
 use App\Entity\Orders;
 use App\Entity\OrderItem;
+use App\Util\Cart;
+use App\Util\Interfaces\CartInterface;
 use Symfony\Component\HttpFoundation\Session\Session;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
@@ -14,11 +16,17 @@ class CartController extends Controller
     const PER_PAGE = 50;
 
     /**
+     * @param Request $request
+     * @param Session $session
+     * @return \Symfony\Component\HttpFoundation\Response
+     *
      * @Route("/cart", name="cart")
      */
     public function index(Request $request, Session $session)
     {
-        $cart = $session->get('cart') ?? [];
+        $cart = $this->getCart($session);
+        $totalPrice = $cart->getTotalPrice();
+        $cart = $cart->getCart();
 
         $paginator = $this->get('knp_paginator');
         $cart = $paginator->paginate(
@@ -31,11 +39,15 @@ class CartController extends Controller
             'cart/index.html.twig',
             array(
                 'cart_paginated' => $cart,
+                'total_price' => $totalPrice,
             )
         );
     }
 
     /**
+     * @param Session $session
+     * @return \Symfony\Component\HttpFoundation\RedirectResponse
+     *
      * @Route("/cart/order", name="cart_order")
      */
     public function cart_order(Session $session) {
@@ -44,7 +56,7 @@ class CartController extends Controller
             return $this->redirect($this->generateUrl('', []));
         }
 
-        $cart = $session->get('cart');
+        $cart = $this->getCart($session)->getCart();
         if (empty($cart)) {
             return $this->redirect($this->generateUrl('book', []));
         }
@@ -76,7 +88,6 @@ class CartController extends Controller
     /**
      * @param $bookId
      * @param $page
-     * @param Request $request
      * @return \Symfony\Component\HttpFoundation\RedirectResponse
      *
      * @Route("/cart/add/{bookId}/{page}", defaults={"page" = 1}, requirements={"bookId": "\d+"}, name="cart_add")
@@ -92,14 +103,24 @@ class CartController extends Controller
             return $this->redirect($this->generateUrl('book', array('page'=>$page)));
         }
 
-        $cart = $session->get('cart');
-
-        $cart[$bookId]['item'] = $book;
-        $cart[$bookId]['count'] = 1 + ($cart[$bookId]['count'] ?? 0);
-
+        $cart = $this->getCart($session);
+        $cart->add($book);
         $session->set('cart', $cart);
 
         return $this->redirect($this->generateUrl('book', array('page'=>$page)));
+    }
+
+    /**
+     * @param Session $session
+     * @return Cart
+     */
+    private function getCart(Session $session)
+    {
+        $cart = $session->get('cart');
+        if (!($cart instanceof CartInterface)) {
+            $cart = new Cart();
+        }
+        return $cart;
     }
 
     /**
@@ -108,10 +129,8 @@ class CartController extends Controller
      */
     public function remove($bookId, $page, Session $session)
     {
-        $cart = $session->get('cart');
-
-        unset($cart[$bookId]);
-
+        $cart = $this->getCart($session);
+        $cart->remove($bookId);
         $session->set('cart', $cart);
 
         return $this->redirect($this->generateUrl('cart', array('page'=>$page)));
